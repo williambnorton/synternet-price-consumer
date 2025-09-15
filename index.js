@@ -47,11 +47,8 @@ async function main() {
       
       try {
         // Parse to ensure it's valid JSON, then stringify to ensure clean output
-//        const jsonData = JSON.parse(cleanData);
-//        process.stdout.write(JSON.stringify(jsonData) + '\n');
-// Add after the JSON.stringify line:
-const jsonData = JSON.parse(cleanData);
-process.stdout.write(JSON.stringify(jsonData, null, 2) + '\n');
+	const jsonData = JSON.parse(cleanData);
+	process.stdout.write(JSON.stringify(jsonData, null, 2) + '\n');
 
       } catch (err) {
         console.error("Invalid JSON received:", cleanData);

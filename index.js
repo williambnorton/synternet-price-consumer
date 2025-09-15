@@ -3,9 +3,6 @@ import { createAppJwt, NatsService } from "pubsub-js-synternet";
 
 dotenv.config();
 
-// Use console.log for messages
-console.log("➡️ Setting up SIGINT handler for graceful shutdown");
-
 // Handle SIGINT (Ctrl+C) for graceful shutdown
 process.on("SIGINT", () => {
   console.log("\n🛑 Received SIGINT. Shutting down...");
@@ -42,12 +39,20 @@ async function main() {
 
     await service.waitForConnection();
 
-    console.log(`✅ Connected to ${BROKER}`);
-    console.log(`📡 Subscribed to subject: ${SUBJECT}`);
-
     service.addHandler(SUBJECT, (encoded) => {
       const data = new TextDecoder().decode(encoded);
-      console.log(data);
+      
+      // Clean the data and ensure it's a single JSON object per line
+      const cleanData = data.trim().replace(/\r/g, '');
+      
+      try {
+        // Parse to ensure it's valid JSON, then stringify to ensure clean output
+	const jsonData = JSON.parse(cleanData);
+	process.stdout.write(JSON.stringify(jsonData, null, 2) + '\n');
+
+      } catch (err) {
+        console.error("Invalid JSON received:", cleanData);
+      }
     });
 
     await service.serve();
@@ -58,3 +63,4 @@ async function main() {
 }
 
 main();
+

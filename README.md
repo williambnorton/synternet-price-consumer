@@ -5,6 +5,9 @@ Steps to use:
 1) Create a project on https://portal.synternet.com
 2) Add a service: synternet.price.all ...You will need SYNT tokens here (Free 100SYNT if you bought my Amazon KDP Synternet AI Cookbook in 2025)
 3) Click the '...' next to the project name to Reveal Access Token
+## AI Prompt
+Use the Synternet NodeJS integration code to create a Docker that subscribes to the synternet.price.all subject and prints the formatted JSON records token prices. Create two command lists that I can cut and paste into a terminal window to create the synternet-price-consumer project. The first set should create the directory structure, the Docker related files and the npm code. The second set should be the index.js code that we will stepwise refine here.
+## Sample Output
 ```
 % docker run --rm -it -e SYNTERNET_ACCESS_KEY=SA_SYNTERNET_ACCESS_KEY_HERE  williambnorton/synternet-price-consumer:latest
 {

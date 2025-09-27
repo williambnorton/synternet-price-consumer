@@ -1,0 +1,1000 @@
+# synternet-price-consumer
+## Introduction
+A simple dump to screen of the Synternet token price data stream.
+
+
+There may be an active hard-coded ACCESS_KEY in the code base on purpose. The synternet.price.all delivers 24KB every minute which amount to almost 1GB per month at a cost of 5SYNT/GB or 5¢ per month. To make this code in a docker easy to use and build upon. 
+I have allocate $5 worth or 500GB worth of credit for the community of users. 
+In return I would like to see posted examples of uses.
+Specifically, I am looking for 
+1) command line tools like jq to use the output in interesting ways
+2) Replit prompts that build cool visualizations driven by the one-minute pulses of token prices
+3) n8n integrations that bring the data into the n8n ecosystem
+4) other interesting uses of the data stream
+
+To run using my free SYNTERNET_ACCESS_KEY:
+docker run -it --rm williambnorton/synternet-price-consumer:latest
+
+When these tokens are used up...
+Steps to use:
+1) Create a project on https://portal.synternet.com
+2) Add a service: synternet.price.all ...You will need to acquire SYNT tokens here 
+3) Click the '...' next to the project name to Reveal Access Token and set to $SAA_SYNTERNET_ACCESS_KEY_HERE
+
+## AI Prompt
+Use the Synternet NodeJS integration code to create a Docker that subscribes to the synternet.price.all subject and prints the formatted JSON records token prices. Create two command lists that I can cut and paste into a terminal window to create the synternet-price-consumer project. The first set should create the directory structure, the Docker related files and the npm code. The second set should be the index.js code that we will stepwise refine here.
+## Sample Output
+```
+% docker run --rm -it -e SYNTERNET_ACCESS_KEY=$SAA_SYNTERNET_ACCESS_KEY_HERE  williambnorton/synternet-price-consumer:latest
+{
+  "AAVE": {
+    "price": 299.7880537196447,
+    "volume_24h": 338996777.9867259,
+    "volume_change_24h": 6.2575,
+    "price_percent_change_24h": -2.72081222,
+    "price_percent_change_30d": 1.29413399,
+    "market_cap": 4566021609.184374,
+    "market_cap_dominance": 0.114,
+    "last_updated": 1757971920
+  },
+  "ADA": {
+    "price": 0.863314073255147,
+    "volume_24h": 1963152869.4699628,
+    "volume_change_24h": 45.3006,
+    "price_percent_change_24h": -3.15095747,
+    "price_percent_change_30d": -6.22853932,
+    "market_cap": 30889618819.81336,
+    "market_cap_dominance": 0.7713,
+    "last_updated": 1757971980
+  },
+  "AKT": {
+    "price": 1.14020826644349,
+    "volume_24h": 9575468.10315371,
+    "volume_change_24h": 24.351,
+    "price_percent_change_24h": -3.40923957,
+    "price_percent_change_30d": -12.97772041,
+    "market_cap": 283097515.5131239,
+    "market_cap_dominance": 0.0071,
+    "last_updated": 1757971980
+  },
+  "ALGO": {
+    "price": 0.23228650367729264,
+    "volume_24h": 102789570.11266167,
+    "volume_change_24h": 16.973,
+    "price_percent_change_24h": -3.44214825,
+    "price_percent_change_30d": -11.28818015,
+    "market_cap": 2038537189.0237162,
+    "market_cap_dominance": 0.0509,
+    "last_updated": 1757971920
+  },
+  "APT": {
+    "price": 4.383292892117136,
+    "volume_24h": 406512280.17607605,
+    "volume_change_24h": 52.5342,
+    "price_percent_change_24h": -3.53754083,
+    "price_percent_change_30d": -7.13522482,
+    "market_cap": 3072525888.658234,
+    "market_cap_dominance": 0.0767,
+    "last_updated": 1757971980
+  },
+  "ARB": {
+    "price": 0.4929727056580709,
+    "volume_24h": 438342852.5856427,
+    "volume_change_24h": 45.8841,
+    "price_percent_change_24h": -4.61599304,
+    "price_percent_change_30d": -0.59603221,
+    "market_cap": 2610675022.77637,
+    "market_cap_dominance": 0.0652,
+    "last_updated": 1757971980
+  },
+  "ATOM": {
+    "price": 4.518237126488517,
+    "volume_24h": 134528521.96000612,
+    "volume_change_24h": 27.9502,
+    "price_percent_change_24h": -3.18182705,
+    "price_percent_change_30d": -1.03960938,
+    "market_cap": 2115908519.2830782,
+    "market_cap_dominance": 0.0528,
+    "last_updated": 1757971920
+  },
+  "AVAX": {
+    "price": 29.907347476346356,
+    "volume_24h": 1200848485.135371,
+    "volume_change_24h": 34.415,
+    "price_percent_change_24h": 1.38144986,
+    "price_percent_change_30d": 23.51547246,
+    "market_cap": 12629133693.797691,
+    "market_cap_dominance": 0.3153,
+    "last_updated": 1757971980
+  },
+  "AXS": {
+    "price": 2.421668390209024,
+    "volume_24h": 60034717.36027223,
+    "volume_change_24h": 15.4611,
+    "price_percent_change_24h": -5.12830815,
+    "price_percent_change_30d": 0.17614634,
+    "market_cap": 403960887.42182827,
+    "market_cap_dominance": 0.0101,
+    "last_updated": 1757971920
+  },
+  "BCH": {
+    "price": 593.2632129601052,
+    "volume_24h": 801573931.1976713,
+    "volume_change_24h": 74.5564,
+    "price_percent_change_24h": -0.18121379,
+    "price_percent_change_30d": 1.09109953,
+    "market_cap": 11821336826.177488,
+    "market_cap_dominance": 0.2952,
+    "last_updated": 1757971920
+  },
+  "BGB": {
+    "price": 4.943798284957941,
+    "volume_24h": 311674393.44006723,
+    "volume_change_24h": 51.8223,
+    "price_percent_change_24h": 0.10839502,
+    "price_percent_change_30d": 6.39879961,
+    "market_cap": 3442223694.3814173,
+    "market_cap_dominance": 0.0859,
+    "last_updated": 1757971920
+  },
+  "BNB": {
+    "price": 920.7906143893396,
+    "volume_24h": 2513964215.333288,
+    "volume_change_24h": 8.2157,
+    "price_percent_change_24h": -1.05150574,
+    "price_percent_change_30d": 10.11986251,
+    "market_cap": 128162062425.9332,
+    "market_cap_dominance": 3.1999,
+    "last_updated": 1757971920
+  },
+  "BONK": {
+    "price": 0.000023332960350708478,
+    "volume_24h": 462921971.45894414,
+    "volume_change_24h": 35.578,
+    "price_percent_change_24h": -6.14389488,
+    "price_percent_change_30d": -3.78458794,
+    "market_cap": 1894009568.6805308,
+    "market_cap_dominance": 0.0473,
+    "last_updated": 1757971980
+  },
+  "BSV": {
+    "price": 25.999280655060723,
+    "volume_24h": 46836433.5027371,
+    "volume_change_24h": -0.9402,
+    "price_percent_change_24h": -1.7068773,
+    "price_percent_change_30d": -6.53942097,
+    "market_cap": 517917451.5728564,
+    "market_cap_dominance": 0.0129,
+    "last_updated": 1757971920
+  },
+  "BTC": {
+    "price": 115421.2330426164,
+    "volume_24h": 54098312155.12049,
+    "volume_change_24h": 72.7432,
+    "price_percent_change_24h": -0.43778863,
+    "price_percent_change_30d": -1.89919961,
+    "market_cap": 2299353590726.276,
+    "market_cap_dominance": 57.41,
+    "last_updated": 1757971980
+  },
+  "BTT": {
+    "price": 6.36603206260264e-7,
+    "volume_24h": 19606788.7254866,
+    "volume_change_24h": 53.5048,
+    "price_percent_change_24h": -2.00112389,
+    "price_percent_change_30d": -6.09423967,
+    "market_cap": 627729685.1114264,
+    "market_cap_dominance": 0.0157,
+    "last_updated": 1757971920
+  },
+  "CAKE": {
+    "price": 2.453654562047384,
+    "volume_24h": 56056654.69668665,
+    "volume_change_24h": 3.1133,
+    "price_percent_change_24h": -3.75212845,
+    "price_percent_change_30d": -10.25101775,
+    "market_cap": 847318762.1722331,
+    "market_cap_dominance": 0.0212,
+    "last_updated": 1757971980
+  },
+  "CRO": {
+    "price": 0.2312164567547814,
+    "volume_24h": 110936717.84318946,
+    "volume_change_24h": 104.0544,
+    "price_percent_change_24h": -2.76239496,
+    "price_percent_change_30d": 52.63332928,
+    "market_cap": 7777359962.4371805,
+    "market_cap_dominance": 0.1942,
+    "last_updated": 1757971920
+  },
+  "DAI": {
+    "price": 0.9999352563368937,
+    "volume_24h": 169296321.26477656,
+    "volume_change_24h": 115.5254,
+    "price_percent_change_24h": 0.00911608,
+    "price_percent_change_30d": -0.01001645,
+    "market_cap": 5365035328.134734,
+    "market_cap_dominance": 0.134,
+    "last_updated": 1757971920
+  },
+  "DEXE": {
+    "price": 6.964800480191834,
+    "volume_24h": 6981283.87600783,
+    "volume_change_24h": 33.8174,
+    "price_percent_change_24h": 0.41533941,
+    "price_percent_change_30d": -6.08389749,
+    "market_cap": 583188148.0037152,
+    "market_cap_dominance": 0.0146,
+    "last_updated": 1757971920
+  },
+  "DOGE": {
+    "price": 0.26686617368654525,
+    "volume_24h": 5765424966.635906,
+    "volume_change_24h": 0.2651,
+    "price_percent_change_24h": -4.79598247,
+    "price_percent_change_30d": 16.04148249,
+    "market_cap": 40285035806.65068,
+    "market_cap_dominance": 1.0058,
+    "last_updated": 1757971920
+  },
+  "DOT": {
+    "price": 4.17071252281102,
+    "volume_24h": 335526280.4115789,
+    "volume_change_24h": 17.7741,
+    "price_percent_change_24h": -3.80104577,
+    "price_percent_change_30d": 5.33305693,
+    "market_cap": 6746421684.502111,
+    "market_cap_dominance": 0.1685,
+    "last_updated": 1757971980
+  },
+  "ENA": {
+    "price": 0.7075907931176766,
+    "volume_24h": 901211867.6776247,
+    "volume_change_24h": 166.0367,
+    "price_percent_change_24h": -6.03792243,
+    "price_percent_change_30d": -2.72481929,
+    "market_cap": 4874637198.212244,
+    "market_cap_dominance": 0.1217,
+    "last_updated": 1757971980
+  },
+  "ENS": {
+    "price": 23.15584597100838,
+    "volume_24h": 80275454.06820706,
+    "volume_change_24h": 19.7817,
+    "price_percent_change_24h": -3.01828482,
+    "price_percent_change_30d": -12.24996319,
+    "market_cap": 856735050.0646145,
+    "market_cap_dominance": 0.0214,
+    "last_updated": 1757971920
+  },
+  "ETC": {
+    "price": 20.344024764559652,
+    "volume_24h": 176854843.81470573,
+    "volume_change_24h": 5.8925,
+    "price_percent_change_24h": -4.04373887,
+    "price_percent_change_30d": -8.9191381,
+    "market_cap": 3123445365.760757,
+    "market_cap_dominance": 0.078,
+    "last_updated": 1757971980
+  },
+  "ETH": {
+    "price": 4517.508645723226,
+    "volume_24h": 39398443381.37567,
+    "volume_change_24h": 41.043,
+    "price_percent_change_24h": -2.24380418,
+    "price_percent_change_30d": 2.11075424,
+    "market_cap": 545284264290.50385,
+    "market_cap_dominance": 13.6153,
+    "last_updated": 1757971920
+  },
+  "FBTC": {
+    "price": 114833.18835122211,
+    "volume_24h": 164941.55547928,
+    "volume_change_24h": 65.8224,
+    "price_percent_change_24h": -0.53880771,
+    "price_percent_change_30d": -2.41548453,
+    "market_cap": 93869810.78628257,
+    "market_cap_dominance": 0,
+    "last_updated": 1757971920
+  },
+  "FDUSD": {
+    "price": 0.9982734531639704,
+    "volume_24h": 6736143953.631485,
+    "volume_change_24h": 62.2454,
+    "price_percent_change_24h": -0.01259656,
+    "price_percent_change_30d": -0.00511274,
+    "market_cap": 1123581882.453655,
+    "market_cap_dominance": 0.0281,
+    "last_updated": 1757971920
+  },
+  "FET": {
+    "price": 0.63767690608915,
+    "volume_24h": 87998730.18443282,
+    "volume_change_24h": 32.183,
+    "price_percent_change_24h": -3.47740548,
+    "price_percent_change_30d": -9.5709902,
+    "market_cap": 1513084376.981377,
+    "market_cap_dominance": 0.0378,
+    "last_updated": 1757971980
+  },
+  "FIL": {
+    "price": 2.4132570526696955,
+    "volume_24h": 199265220.48136517,
+    "volume_change_24h": 14.8318,
+    "price_percent_change_24h": -4.38794817,
+    "price_percent_change_30d": -4.36863186,
+    "market_cap": 1663546083.4103897,
+    "market_cap_dominance": 0.0415,
+    "last_updated": 1757971920
+  },
+  "FLOKI": {
+    "price": 0.0000952171621063888,
+    "volume_24h": 120601709.61309512,
+    "volume_change_24h": 28.8366,
+    "price_percent_change_24h": -6.45450098,
+    "price_percent_change_30d": -10.74089708,
+    "market_cap": 908320925.2922391,
+    "market_cap_dominance": 0.0227,
+    "last_updated": 1757971980
+  },
+  "FLOW": {
+    "price": 0.3989840123928375,
+    "volume_24h": 23337405.37584309,
+    "volume_change_24h": -0.3656,
+    "price_percent_change_24h": -4.62539697,
+    "price_percent_change_30d": 1.5675939,
+    "market_cap": 641705424.9421098,
+    "market_cap_dominance": 0.016,
+    "last_updated": 1757971980
+  },
+  "GALA": {
+    "price": 0.016709675159294647,
+    "volume_24h": 96276484.08250688,
+    "volume_change_24h": 24.2967,
+    "price_percent_change_24h": -4.57144203,
+    "price_percent_change_30d": -3.40211656,
+    "market_cap": 768319812.7982115,
+    "market_cap_dominance": 0.0192,
+    "last_updated": 1757971920
+  },
+  "GRT": {
+    "price": 0.09315534535942269,
+    "volume_24h": 42040600.1450703,
+    "volume_change_24h": 25.1368,
+    "price_percent_change_24h": -3.91476017,
+    "price_percent_change_30d": -1.40677776,
+    "market_cap": 976043174.6629324,
+    "market_cap_dominance": 0.0244,
+    "last_updated": 1757971980
+  },
+  "GT": {
+    "price": 16.948055387388788,
+    "volume_24h": 6924159.85224495,
+    "volume_change_24h": -44.9991,
+    "price_percent_change_24h": -1.17209452,
+    "price_percent_change_30d": -3.65044704,
+    "market_cap": 1395933468.041849,
+    "market_cap_dominance": 0.0349,
+    "last_updated": 1757971980
+  },
+  "HBAR": {
+    "price": 0.23578823400280793,
+    "volume_24h": 283010726.7098024,
+    "volume_change_24h": 21.8993,
+    "price_percent_change_24h": -2.00309996,
+    "price_percent_change_30d": -6.10557467,
+    "market_cap": 9995753484.72787,
+    "market_cap_dominance": 0.2496,
+    "last_updated": 1757971920
+  },
+  "HNT": {
+    "price": 2.630064057756626,
+    "volume_24h": 13754062.85061135,
+    "volume_change_24h": -31.8795,
+    "price_percent_change_24h": -5.62637853,
+    "price_percent_change_30d": -1.04508513,
+    "market_cap": 489766318.87739193,
+    "market_cap_dominance": 0.0122,
+    "last_updated": 1757971920
+  },
+  "HYPE": {
+    "price": 53.700594839980596,
+    "volume_24h": 315827340.23064333,
+    "volume_change_24h": 17.3699,
+    "price_percent_change_24h": -0.59442446,
+    "price_percent_change_30d": 14.97533872,
+    "market_cap": 17932141899.83211,
+    "market_cap_dominance": 0.4478,
+    "last_updated": 1757971980
+  },
+  "ICP": {
+    "price": 4.670719853407539,
+    "volume_24h": 92873641.80868332,
+    "volume_change_24h": 37.7361,
+    "price_percent_change_24h": -4.09264786,
+    "price_percent_change_30d": -14.28928256,
+    "market_cap": 2513066205.721471,
+    "market_cap_dominance": 0.0627,
+    "last_updated": 1757971920
+  },
+  "IMX": {
+    "price": 0.6296412610598707,
+    "volume_24h": 72468496.62553406,
+    "volume_change_24h": 45.3206,
+    "price_percent_change_24h": -3.20868729,
+    "price_percent_change_30d": 8.13202013,
+    "market_cap": 1221465065.61112,
+    "market_cap_dominance": 0.0305,
+    "last_updated": 1757971920
+  },
+  "INJ": {
+    "price": 13.501191442062474,
+    "volume_24h": 115630351.19682792,
+    "volume_change_24h": 18.9098,
+    "price_percent_change_24h": -4.56007349,
+    "price_percent_change_30d": -7.6896143,
+    "market_cap": 1349726737.6124723,
+    "market_cap_dominance": 0.0337,
+    "last_updated": 1757971980
+  },
+  "IOTA": {
+    "price": 0.18788131988101614,
+    "volume_24h": 25097781.22451692,
+    "volume_change_24h": 15.2255,
+    "price_percent_change_24h": -3.42666447,
+    "price_percent_change_30d": -11.05421448,
+    "market_cap": 755369047.8159184,
+    "market_cap_dominance": 0.0189,
+    "last_updated": 1757971980
+  },
+  "JTO": {
+    "price": 1.8080875927298972,
+    "volume_24h": 58691599.58385174,
+    "volume_change_24h": -23.7972,
+    "price_percent_change_24h": -6.62290973,
+    "price_percent_change_30d": 2.14764619,
+    "market_cap": 682695218.4636941,
+    "market_cap_dominance": 0.017,
+    "last_updated": 1757971980
+  },
+  "JUP": {
+    "price": 0.5089483600077608,
+    "volume_24h": 104284489.34485939,
+    "volume_change_24h": 56.3717,
+    "price_percent_change_24h": -6.0626391,
+    "price_percent_change_30d": -1.24789008,
+    "market_cap": 1583717231.7508197,
+    "market_cap_dominance": 0.0395,
+    "last_updated": 1757971980
+  },
+  "KAIA": {
+    "price": 0.15400706215555357,
+    "volume_24h": 28497399.32499589,
+    "volume_change_24h": -0.7174,
+    "price_percent_change_24h": -2.48212016,
+    "price_percent_change_30d": -0.17139217,
+    "market_cap": 942488112.7627586,
+    "market_cap_dominance": 0.0235,
+    "last_updated": 1757971980
+  },
+  "KAS": {
+    "price": 0.08370615602766396,
+    "volume_24h": 58760103.50688197,
+    "volume_change_24h": 16.6615,
+    "price_percent_change_24h": -2.81640379,
+    "price_percent_change_30d": -7.07902116,
+    "market_cap": 2235094596.390034,
+    "market_cap_dominance": 0.0558,
+    "last_updated": 1757971980
+  },
+  "KCS": {
+    "price": 15.879583668357506,
+    "volume_24h": 6562236.4309754,
+    "volume_change_24h": 3.2517,
+    "price_percent_change_24h": -1.28347602,
+    "price_percent_change_30d": 20.82026399,
+    "market_cap": 2022416594.2311103,
+    "market_cap_dominance": 0.0505,
+    "last_updated": 1757971920
+  },
+  "LDO": {
+    "price": 1.181865276357867,
+    "volume_24h": 82482846.53104536,
+    "volume_change_24h": -8.1055,
+    "price_percent_change_24h": -4.60208798,
+    "price_percent_change_30d": -15.78045227,
+    "market_cap": 1058716744.1673261,
+    "market_cap_dominance": 0.0264,
+    "last_updated": 1757971980
+  },
+  "LEO": {
+    "price": 9.549464525291539,
+    "volume_24h": 798386.42371767,
+    "volume_change_24h": 36.0957,
+    "price_percent_change_24h": 0.13783172,
+    "price_percent_change_30d": 1.49173951,
+    "market_cap": 8810879344.15998,
+    "market_cap_dominance": 0.22,
+    "last_updated": 1757971920
+  },
+  "LINK": {
+    "price": 23.664580799779056,
+    "volume_24h": 907665825.4733615,
+    "volume_change_24h": 33.258,
+    "price_percent_change_24h": -2.24108161,
+    "price_percent_change_30d": 4.5180014,
+    "market_cap": 16046951541.107761,
+    "market_cap_dominance": 0.4007,
+    "last_updated": 1757971920
+  },
+  "LTC": {
+    "price": 113.6352852587797,
+    "volume_24h": 627571942.9552493,
+    "volume_change_24h": -19.563,
+    "price_percent_change_24h": -1.50806369,
+    "price_percent_change_30d": -5.08340307,
+    "market_cap": 8670659419.732502,
+    "market_cap_dominance": 0.2165,
+    "last_updated": 1757971920
+  },
+  "MKR": {
+    "price": 1781.1410531699494,
+    "volume_24h": 8441228.97370817,
+    "volume_change_24h": -61.5083,
+    "price_percent_change_24h": -2.20665433,
+    "price_percent_change_30d": -1.09963268,
+    "market_cap": 0,
+    "market_cap_dominance": 0,
+    "last_updated": 1757971980
+  },
+  "MNT": {
+    "price": 1.6413854808358113,
+    "volume_24h": 554873008.2183251,
+    "volume_change_24h": 26.4918,
+    "price_percent_change_24h": 2.92409783,
+    "price_percent_change_30d": 22.17894424,
+    "market_cap": 5339335143.057609,
+    "market_cap_dominance": 0.1333,
+    "last_updated": 1757971920
+  },
+  "MOVE": {
+    "price": 0.12539202099870778,
+    "volume_24h": 34088547.08883125,
+    "volume_change_24h": 29.465,
+    "price_percent_change_24h": -3.09052479,
+    "price_percent_change_30d": -9.30292875,
+    "market_cap": 338558456.696511,
+    "market_cap_dominance": 0.0085,
+    "last_updated": 1757971920
+  },
+  "NEAR": {
+    "price": 2.6278367737742836,
+    "volume_24h": 211724080.25097808,
+    "volume_change_24h": 47.8665,
+    "price_percent_change_24h": -3.06678497,
+    "price_percent_change_30d": -4.15912229,
+    "market_cap": 3284367608.801035,
+    "market_cap_dominance": 0.082,
+    "last_updated": 1757971920
+  },
+  "NEO": {
+    "price": 6.525281955519736,
+    "volume_24h": 24589357.01637754,
+    "volume_change_24h": 21.7204,
+    "price_percent_change_24h": -3.63416556,
+    "price_percent_change_30d": 2.79049457,
+    "market_cap": 460285761.08775616,
+    "market_cap_dominance": 0.0115,
+    "last_updated": 1757971920
+  },
+  "NEXO": {
+    "price": 1.2857476698075916,
+    "volume_24h": 11403634.4216088,
+    "volume_change_24h": -1.4464,
+    "price_percent_change_24h": -0.21889489,
+    "price_percent_change_30d": -4.86045115,
+    "market_cap": 830780507.5890208,
+    "market_cap_dominance": 0.0207,
+    "last_updated": 1757971980
+  },
+  "OKB": {
+    "price": 197.25072120439174,
+    "volume_24h": 160100580.58763972,
+    "volume_change_24h": 4.8891,
+    "price_percent_change_24h": -1.17443496,
+    "price_percent_change_30d": 83.12107077,
+    "market_cap": 4142265145.2922263,
+    "market_cap_dominance": 0.1034,
+    "last_updated": 1757971920
+  },
+  "OM": {
+    "price": 0.2050921704432039,
+    "volume_24h": 65311147.37914727,
+    "volume_change_24h": 15.0433,
+    "price_percent_change_24h": -6.22323219,
+    "price_percent_change_30d": -20.05504782,
+    "market_cap": 217177442.01445982,
+    "market_cap_dominance": 0.0054,
+    "last_updated": 1757971920
+  },
+  "ONDO": {
+    "price": 1.0301044167619946,
+    "volume_24h": 214240192.2878769,
+    "volume_change_24h": 10.0287,
+    "price_percent_change_24h": -2.34336658,
+    "price_percent_change_30d": 3.29472878,
+    "market_cap": 3254210618.648971,
+    "market_cap_dominance": 0.0812,
+    "last_updated": 1757971920
+  },
+  "OP": {
+    "price": 0.7436231391162694,
+    "volume_24h": 206609562.6706195,
+    "volume_change_24h": 33.8266,
+    "price_percent_change_24h": -5.75065647,
+    "price_percent_change_30d": 0.9314249,
+    "market_cap": 1322633688.431951,
+    "market_cap_dominance": 0.033,
+    "last_updated": 1757971980
+  },
+  "OSMO": {
+    "price": 0.16142569405648394,
+    "volume_24h": 8822895.91911203,
+    "volume_change_24h": 16.069,
+    "price_percent_change_24h": -5.03744206,
+    "price_percent_change_30d": -8.94079366,
+    "market_cap": 120123929.39282937,
+    "market_cap_dominance": 0.003,
+    "last_updated": 1757971920
+  },
+  "PEPE": {
+    "price": 0.000010754846056913543,
+    "volume_24h": 831599654.0533955,
+    "volume_change_24h": -10.3753,
+    "price_percent_change_24h": -7.23090307,
+    "price_percent_change_30d": -2.36512162,
+    "market_cap": 4524455108.472267,
+    "market_cap_dominance": 0.113,
+    "last_updated": 1757971980
+  },
+  "PICA": {
+    "price": 0.000015463052441464495,
+    "volume_24h": 0,
+    "volume_change_24h": 0,
+    "price_percent_change_24h": -9.88872804,
+    "price_percent_change_30d": -44.29933984,
+    "market_cap": 0,
+    "market_cap_dominance": 0,
+    "last_updated": 1757971920
+  },
+  "POL": {
+    "price": 0.2567930144011732,
+    "volume_24h": 199084857.53496522,
+    "volume_change_24h": 19.6549,
+    "price_percent_change_24h": -6.19530337,
+    "price_percent_change_30d": 8.54006062,
+    "market_cap": 2695358742.592657,
+    "market_cap_dominance": 0.0673,
+    "last_updated": 1757971920
+  },
+  "PYTH": {
+    "price": 0.16058381613239914,
+    "volume_24h": 91966717.93871713,
+    "volume_change_24h": 6.2297,
+    "price_percent_change_24h": -4.14671943,
+    "price_percent_change_30d": 30.29191068,
+    "market_cap": 923354295.9563357,
+    "market_cap_dominance": 0.0231,
+    "last_updated": 1757971920
+  },
+  "RAY": {
+    "price": 3.2751744619393586,
+    "volume_24h": 67985379.97545941,
+    "volume_change_24h": -12.5362,
+    "price_percent_change_24h": -4.65462786,
+    "price_percent_change_30d": -8.56197206,
+    "market_cap": 878162997.2491349,
+    "market_cap_dominance": 0.0219,
+    "last_updated": 1757971920
+  },
+  "RENDER": {
+    "price": 3.7746057274651377,
+    "volume_24h": 67463169.35074024,
+    "volume_change_24h": 20.773,
+    "price_percent_change_24h": -3.53017791,
+    "price_percent_change_30d": -3.73789144,
+    "market_cap": 1957452462.3482242,
+    "market_cap_dominance": 0.0489,
+    "last_updated": 1757971980
+  },
+  "RON": {
+    "price": 0.49479683897319937,
+    "volume_24h": 4924160.54978005,
+    "volume_change_24h": -20.7596,
+    "price_percent_change_24h": -3.48788327,
+    "price_percent_change_30d": -10.92018206,
+    "market_cap": 342954139.1836427,
+    "market_cap_dominance": 0.0086,
+    "last_updated": 1757971920
+  },
+  "SHIB": {
+    "price": 0.000013025347346270168,
+    "volume_24h": 307126437.6453196,
+    "volume_change_24h": 7.6086,
+    "price_percent_change_24h": -4.96381937,
+    "price_percent_change_30d": 0.38297997,
+    "market_cap": 7675132406.093235,
+    "market_cap_dominance": 0.1916,
+    "last_updated": 1757971980
+  },
+  "SOL": {
+    "price": 234.30697209782008,
+    "volume_24h": 10334632030.933033,
+    "volume_change_24h": 13.3612,
+    "price_percent_change_24h": -3.2982566,
+    "price_percent_change_30d": 24.14725247,
+    "market_cap": 127127008818.42007,
+    "market_cap_dominance": 3.1743,
+    "last_updated": 1757971980
+  },
+  "SPX": {
+    "price": 1.2930823052068092,
+    "volume_24h": 34746022.87700747,
+    "volume_change_24h": 28.4786,
+    "price_percent_change_24h": -5.19467836,
+    "price_percent_change_30d": -12.87955062,
+    "market_cap": 1203850691.0393262,
+    "market_cap_dominance": 0.0301,
+    "last_updated": 1757971920
+  },
+  "STX": {
+    "price": 0.6457219733791171,
+    "volume_24h": 34296621.50181982,
+    "volume_change_24h": 10.0016,
+    "price_percent_change_24h": -3.91602486,
+    "price_percent_change_30d": -10.1125848,
+    "market_cap": 1161418990.487457,
+    "market_cap_dominance": 0.029,
+    "last_updated": 1757971980
+  },
+  "SUI": {
+    "price": 3.5165431366021225,
+    "volume_24h": 1299833493.1447735,
+    "volume_change_24h": 26.2594,
+    "price_percent_change_24h": -5.29128151,
+    "price_percent_change_30d": -6.55551214,
+    "market_cap": 12549957675.643673,
+    "market_cap_dominance": 0.3134,
+    "last_updated": 1757971920
+  },
+  "SYNT": {
+    "price": 0.01283800109995528,
+    "volume_24h": 2271768.87789603,
+    "volume_change_24h": 54.6587,
+    "price_percent_change_24h": 0.61357911,
+    "price_percent_change_30d": -22.08337191,
+    "market_cap": 8414238.55672291,
+    "market_cap_dominance": 0,
+    "last_updated": 1757971920
+  },
+  "TAO": {
+    "price": 342.82787696052054,
+    "volume_24h": 181054881.9406604,
+    "volume_change_24h": 90.5258,
+    "price_percent_change_24h": -2.61411188,
+    "price_percent_change_30d": -8.11946136,
+    "market_cap": 3387703813.9169526,
+    "market_cap_dominance": 0.0846,
+    "last_updated": 1757971920
+  },
+  "THETA": {
+    "price": 0.8086489022888255,
+    "volume_24h": 30028768.66512485,
+    "volume_change_24h": -4.5338,
+    "price_percent_change_24h": -4.39703431,
+    "price_percent_change_30d": -5.67638293,
+    "market_cap": 808648902.2888255,
+    "market_cap_dominance": 0.0202,
+    "last_updated": 1757971920
+  },
+  "TIA": {
+    "price": 1.694963138414134,
+    "volume_24h": 87428224.20260462,
+    "volume_change_24h": 20.4225,
+    "price_percent_change_24h": -4.52907476,
+    "price_percent_change_30d": -7.30764361,
+    "market_cap": 1325052816.3065228,
+    "market_cap_dominance": 0.0331,
+    "last_updated": 1757971920
+  },
+  "TON": {
+    "price": 3.1568853382934927,
+    "volume_24h": 155694501.47817492,
+    "volume_change_24h": 15.0666,
+    "price_percent_change_24h": -1.12936898,
+    "price_percent_change_30d": -8.54838529,
+    "market_cap": 8110327085.509327,
+    "market_cap_dominance": 0.2025,
+    "last_updated": 1757971920
+  },
+  "TRUMP": {
+    "price": 8.523004426340897,
+    "volume_24h": 317795373.66269225,
+    "volume_change_24h": -21.0627,
+    "price_percent_change_24h": -3.05288049,
+    "price_percent_change_30d": -6.41003282,
+    "market_cap": 1704594673.913515,
+    "market_cap_dominance": 0.0426,
+    "last_updated": 1757971980
+  },
+  "TRX": {
+    "price": 0.3446208711607785,
+    "volume_24h": 915393686.0667307,
+    "volume_change_24h": 42.0861,
+    "price_percent_change_24h": -1.21946443,
+    "price_percent_change_30d": -1.10645477,
+    "market_cap": 32623228902.465183,
+    "market_cap_dominance": 0.8146,
+    "last_updated": 1757971980
+  },
+  "UNI": {
+    "price": 9.161702460303589,
+    "volume_24h": 366428646.23581785,
+    "volume_change_24h": -32.8245,
+    "price_percent_change_24h": -3.20867833,
+    "price_percent_change_30d": -16.5948588,
+    "market_cap": 5774900746.5251665,
+    "market_cap_dominance": 0.1442,
+    "last_updated": 1757971920
+  },
+  "USDC": {
+    "price": 0.9998596693691826,
+    "volume_24h": 17451747132.231533,
+    "volume_change_24h": 40.5812,
+    "price_percent_change_24h": -0.00683863,
+    "price_percent_change_30d": 0.0099189,
+    "market_cap": 73160200168.30243,
+    "market_cap_dominance": 1.8267,
+    "last_updated": 1757971920
+  },
+  "USDT": {
+    "price": 1.0002188058992547,
+    "volume_24h": 139922562817.8664,
+    "volume_change_24h": 34.6726,
+    "price_percent_change_24h": -0.02189729,
+    "price_percent_change_30d": -0.04135293,
+    "market_cap": 170288551941.83447,
+    "market_cap_dominance": 4.252,
+    "last_updated": 1757971920
+  },
+  "USDe": {
+    "price": 1.0009943048733843,
+    "volume_24h": 290184410.53963065,
+    "volume_change_24h": 93.3544,
+    "price_percent_change_24h": -0.00542598,
+    "price_percent_change_30d": -0.02179282,
+    "market_cap": 13719045091.847296,
+    "market_cap_dominance": 0.3425,
+    "last_updated": 1757971920
+  },
+  "VET": {
+    "price": 0.02417162758739975,
+    "volume_24h": 53101551.26995972,
+    "volume_change_24h": 9.7219,
+    "price_percent_change_24h": -2.15088305,
+    "price_percent_change_30d": -2.45657059,
+    "market_cap": 2078398393.4176767,
+    "market_cap_dominance": 0.0519,
+    "last_updated": 1757971980
+  },
+  "VIRTUAL": {
+    "price": 1.228061120873966,
+    "volume_24h": 122718618.09662443,
+    "volume_change_24h": 21.1469,
+    "price_percent_change_24h": -3.57602944,
+    "price_percent_change_30d": 2.33895768,
+    "market_cap": 805112788.4292746,
+    "market_cap_dominance": 0.0201,
+    "last_updated": 1757971980
+  },
+  "WBTC": {
+    "price": 115367.86217774042,
+    "volume_24h": 192388154.35630774,
+    "volume_change_24h": 48.3003,
+    "price_percent_change_24h": -0.37616718,
+    "price_percent_change_30d": -1.93547156,
+    "market_cap": 14698396293.043346,
+    "market_cap_dominance": 0,
+    "last_updated": 1757971980
+  },
+  "XAUt": {
+    "price": 3677.8786930932138,
+    "volume_24h": 63713359.80447006,
+    "volume_change_24h": 161.8106,
+    "price_percent_change_24h": 0.79485342,
+    "price_percent_change_30d": 10.07120814,
+    "market_cap": 906685366.9361115,
+    "market_cap_dominance": 0.0226,
+    "last_updated": 1757971920
+  },
+  "XCN": {
+    "price": 0.011431906994721694,
+    "volume_24h": 19486391.81694262,
+    "volume_change_24h": 17.6822,
+    "price_percent_change_24h": -1.12232529,
+    "price_percent_change_30d": -10.58185974,
+    "market_cap": 400610352.08213454,
+    "market_cap_dominance": 0.01,
+    "last_updated": 1757971980
+  },
+  "XDC": {
+    "price": 0.0755401290076764,
+    "volume_24h": 35864315.16791701,
+    "volume_change_24h": 18.398,
+    "price_percent_change_24h": -1.52534522,
+    "price_percent_change_30d": -11.75803435,
+    "market_cap": 1340398838.5626252,
+    "market_cap_dominance": 0.0335,
+    "last_updated": 1757971980
+  },
+  "XLM": {
+    "price": 0.38034131532448734,
+    "volume_24h": 284875726.3923336,
+    "volume_change_24h": 16.1904,
+    "price_percent_change_24h": -2.70537282,
+    "price_percent_change_30d": -11.03858119,
+    "market_cap": 12111973865.8582,
+    "market_cap_dominance": 0.3024,
+    "last_updated": 1757971980
+  },
+  "XMR": {
+    "price": 304.0360031962144,
+    "volume_24h": 146548710.880622,
+    "volume_change_24h": 73.6716,
+    "price_percent_change_24h": -1.13544139,
+    "price_percent_change_30d": 19.37389427,
+    "market_cap": 5608474340.154106,
+    "market_cap_dominance": 0.14,
+    "last_updated": 1757971980
+  },
+  "XRP": {
+    "price": 2.999281360088759,
+    "volume_24h": 6248860297.294597,
+    "volume_change_24h": 35.704,
+    "price_percent_change_24h": -1.31975526,
+    "price_percent_change_30d": -3.27382734,
+    "market_cap": 178787778185.2205,
+    "market_cap_dominance": 4.4642,
+    "last_updated": 1757971980
+  },
+  "XTZ": {
+    "price": 0.7589358996346313,
+    "volume_24h": 37405985.99967227,
+    "volume_change_24h": 16.2725,
+    "price_percent_change_24h": -1.25871345,
+    "price_percent_change_30d": -10.5505238,
+    "market_cap": 803384541.512043,
+    "market_cap_dominance": 0.0201,
+    "last_updated": 1757971980
+  },
+  "axlUSDC": {
+    "price": 0.9995634790168307,
+    "volume_24h": 2204312.475899,
+    "volume_change_24h": -8.1335,
+    "price_percent_change_24h": -0.00726997,
+    "price_percent_change_30d": 0.00040958,
+    "market_cap": 3887111.661027233,
+    "market_cap_dominance": 0,
+    "last_updated": 1757971980
+  },
+  "stATOM": {
+    "price": 7.484462757208206,
+    "volume_24h": 109472.64259512,
+    "volume_change_24h": -32.2542,
+    "price_percent_change_24h": -3.59703096,
+    "price_percent_change_30d": -0.17077059,
+    "market_cap": 7389403.759211093,
+    "market_cap_dominance": 0,
+    "last_updated": 1757971920
+  }
+}

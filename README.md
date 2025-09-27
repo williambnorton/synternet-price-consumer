@@ -2,14 +2,25 @@
 ## Introduction
 A simple dump to screen of the Synternet token price data stream.
 
+
+There may be an active hard-coded ACCESS_KEY in the code base on purpose. The synternet.price.all delivers 24KB every minute which amount to almost 1GB per month at a cost of 5SYNT/GB or 5¢ per month. To make this code in a docker easy to use and build upon. 
+I have allocate $5 worth or 500GB worth of credit for the community of users. 
+In return I would like to see posted examples of uses.
+Specifically, I am looking for 
+1) command line tools like jq to use the output in interesting ways
+2) Replit prompts that build cool visualizations driven by the one-minute pulses of token prices
+3) n8n integrations that bring the data into the n8n ecosystem
+4) other interesting uses of the data stream
+
+To run using my free SYNTERNET_ACCESS_KEY:
+docker run -it --rm williambnorton/synternet-price-consumer:latest
+
+When these tokens are used up...
 Steps to use:
 1) Create a project on https://portal.synternet.com
-2) Add a service: synternet.price.all ...You will need SYNT tokens here 
+2) Add a service: synternet.price.all ...You will need to acquire SYNT tokens here 
 3) Click the '...' next to the project name to Reveal Access Token and set to $SAA_SYNTERNET_ACCESS_KEY_HERE
 
-There may be an active hard-coded ACCESS_KEY in the code base on purpose. The synternet.price.all delivers 24KB every minute which amount to almost 1GB per month at a cost of 5SYNT/GB or 5¢ per month. To make this code and docker easy to use and build on I have allocate $5 worth or 500GB worth of credit for the community of users. 
-In return I would like to see posted examples of uses.
-I am looking for Replit prompts that build cool visualizations on top of this data stream.
 ## AI Prompt
 Use the Synternet NodeJS integration code to create a Docker that subscribes to the synternet.price.all subject and prints the formatted JSON records token prices. Create two command lists that I can cut and paste into a terminal window to create the synternet-price-consumer project. The first set should create the directory structure, the Docker related files and the npm code. The second set should be the index.js code that we will stepwise refine here.
 ## Sample Output

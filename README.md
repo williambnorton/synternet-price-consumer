@@ -13,7 +13,7 @@ Specifically, I am looking for
 4) other interesting uses of the data stream
 
 To run using my free SYNTERNET_ACCESS_KEY:
-docker run -it --rm williambnorton/synternet-price-consumer:latest
+docker run -it --rm -e PRETTY=1 williambnorton/synternet-price-consumer:latest
 
 When these tokens are used up...
 Steps to use:
@@ -25,7 +25,7 @@ Steps to use:
 Use the Synternet NodeJS integration code to create a Docker that subscribes to the synternet.price.all subject and prints the formatted JSON records token prices. Create two command lists that I can cut and paste into a terminal window to create the synternet-price-consumer project. The first set should create the directory structure, the Docker related files and the npm code. The second set should be the index.js code that we will stepwise refine here.
 ## Sample Output
 ```
-% docker run --rm -it -e SYNTERNET_ACCESS_KEY=$SAA_SYNTERNET_ACCESS_KEY_HERE  williambnorton/synternet-price-consumer:latest
+% docker run --rm -it -e PRETTY=1 -e SYNTERNET_ACCESS_KEY=$SAA_SYNTERNET_ACCESS_KEY_HERE  williambnorton/synternet-price-consumer:latest
 {
   "AAVE": {
     "price": 299.7880537196447,
